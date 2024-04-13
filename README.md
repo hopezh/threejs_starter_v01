@@ -19,7 +19,6 @@ npm run dev
 npm run build
 ```
 
----
 
 ## References:
 - [Bruno Simon: threjs-template-simple](https://github.com/brunosimon/threejs-template-simple)
