@@ -18,3 +18,9 @@ npm run dev
 # Build for production in the dist/ directory
 npm run build
 ```
+
+---
+
+## References:
+- [Bruno Simon: threjs-template-simple](https://github.com/brunosimon/threejs-template-simple)
+
