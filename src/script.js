@@ -33,6 +33,14 @@ window.addEventListener('resize', () => {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 })
 
+// helpers
+const gridHelper = new THREE.GridHelper(10, 10, 0x0000ff, 0x808080)
+gridHelper.position.y = -0.5
+scene.add(gridHelper)
+
+const axisHeler = new THREE.AxesHelper(1)
+scene.add(axisHeler)
+
 /**
  * Camera
  */
