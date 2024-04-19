@@ -68,7 +68,7 @@ controls.enableDamping = true
  */
 const cubeGeo = new THREE.BoxGeometry(1, 1, 1)
 const cubeMat = new THREE.MeshLambertMaterial({
-    color: 0xffffff,
+    color: 0xffa500,
     opacity: 0.5,
     side: THREE.DoubleSide,
     transparent: true
