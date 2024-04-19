@@ -66,10 +66,14 @@ controls.enableDamping = true
 /**
  * Cube
  */
-const cube = new THREE.Mesh(
-    new THREE.BoxGeometry(1, 1, 1),
-    new THREE.MeshBasicMaterial({ color: 0xff0000 })
-)
+const cubeGeo = new THREE.BoxGeometry(1, 1, 1)
+const cubeMat = new THREE.MeshLambertMaterial({
+    color: 0xffffff,
+    opacity: 0.5,
+    side: THREE.DoubleSide,
+    transparent: true
+})
+const cube = new THREE.Mesh(cubeGeo, cubeMat)
 scene.add(cube)
 
 /**
