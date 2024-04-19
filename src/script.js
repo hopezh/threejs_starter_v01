@@ -1,6 +1,7 @@
 import './style.css'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+import { TransformControls } from 'three/examples/jsm/controls/TransformControls.js'
 
 /**
  * Base
@@ -59,9 +60,6 @@ camera.position.y = 2
 camera.position.z = 3
 scene.add(camera)
 
-// Controls
-const controls = new OrbitControls(camera, canvas)
-controls.enableDamping = true
 
 /**
  * Cube
@@ -86,6 +84,21 @@ const renderer = new THREE.WebGLRenderer({
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
+
+// Controls
+const orbitCtrl = new OrbitControls(camera, canvas)
+orbitCtrl.enableDamping = true
+
+// transform control
+const tfCtrl = new TransformControls(camera, renderer.domElement)
+tfCtrl.addEventListener('change', renderer.render(scene, camera))
+tfCtrl.addEventListener('dragging-changed', function(event) {
+    orbitCtrl.enabled = !event.value
+})
+tfCtrl.attach(cube) // not working... 
+scene.add(tfCtrl)
+
+
 /**
  * Animate
  */
@@ -103,7 +116,7 @@ const tick = () => {
     cube.rotation.z += 0.005
 
     // Update controls
-    controls.update()
+    orbitCtrl.update()
 
     // Render
     renderer.render(scene, camera)
