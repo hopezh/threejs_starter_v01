@@ -97,6 +97,11 @@ const tick = () => {
     const deltaTime = elapsedTime - lastElapsedTime
     lastElapsedTime = elapsedTime
 
+    // rotate cube
+    cube.rotation.x += 0.005
+    cube.rotation.y += 0.005
+    cube.rotation.z += 0.005
+
     // Update controls
     controls.update()
 
