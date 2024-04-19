@@ -41,14 +41,22 @@ scene.add(gridHelper)
 const axisHeler = new THREE.AxesHelper(1)
 scene.add(axisHeler)
 
+// ambient light
+scene.add(new THREE.AmbientLight(0x666666))
+
+// point light
+const pointLight = new THREE.PointLight(0xffffff, 10, 0, 0);
+pointLight.position.set(1, 2, -3)
+scene.add(pointLight);
+
 /**
  * Camera
  */
 // Base camera
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
 camera.position.x = 1
-camera.position.y = 1
-camera.position.z = 1
+camera.position.y = 2
+camera.position.z = 3
 scene.add(camera)
 
 // Controls
