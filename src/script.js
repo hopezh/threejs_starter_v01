@@ -1,6 +1,7 @@
 import './style.css'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+import gsap from 'gsap'
 
 /**
  * Base
@@ -92,15 +93,37 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 const clock = new THREE.Clock()
 let lastElapsedTime = 0
 
+gsap.to(
+    cube.position,
+    {
+        duration: 5,
+        delay: 1,
+        x: -2,
+        y: 1,
+        z: -3,
+    }
+)
+
+gsap.to(
+    cube.rotation,
+    {
+        duration: 5,
+        delay: 1,
+        x: 90 * (Math.PI / 180),
+        y: 90 * (Math.PI / 180),
+        z: 90 * (Math.PI / 180),
+    }
+)
+
 const tick = () => {
     const elapsedTime = clock.getElapsedTime()
     const deltaTime = elapsedTime - lastElapsedTime
     lastElapsedTime = elapsedTime
 
-    // rotate cube
-    cube.rotation.x += 0.005
-    cube.rotation.y += 0.005
-    cube.rotation.z += 0.005
+    // // rotate cube
+    // cube.rotation.x += 0.005
+    // cube.rotation.y += 0.005
+    // cube.rotation.z += 0.005
 
     // Update controls
     controls.update()
