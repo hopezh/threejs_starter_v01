@@ -4,6 +4,8 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { RectAreaLightHelper } from 'three/addons/helpers/RectAreaLightHelper.js'
 import { RectAreaLightUniformsLib } from 'three/addons/lights/RectAreaLightUniformsLib.js'
 
+import { Reflector } from 'three/addons/objects/Reflector.js'
+
 /**
  * Base
  */
@@ -43,7 +45,7 @@ const axisHeler = new THREE.AxesHelper(1)
 scene.add(axisHeler)
 
 // ambient light
-scene.add(new THREE.AmbientLight(0x222222))
+scene.add(new THREE.AmbientLight(0xffffff))
 
 // point light
 // const pointLight = new THREE.PointLight(0xffffff, 10, 0, 0);
@@ -75,15 +77,30 @@ scene.add(new RectAreaLightHelper(rectLight_3));
 
 
 // floor
-const geoFloor = new THREE.BoxGeometry(100, 0.1, 100);
-const matStdFloor = new THREE.MeshStandardMaterial({
-    color: 0xbcbcbc,
-    roughness: 0.1,
-    metalness: 0,
-});
-const mshStdFloor = new THREE.Mesh(geoFloor, matStdFloor);
-mshStdFloor.position.y = -1;
-scene.add(mshStdFloor);
+// const geoFloor = new THREE.BoxGeometry(10, 1, 10);
+const geoFloor = new THREE.CircleGeometry(50, 50);
+// const matStdFloor = new THREE.MeshStandardMaterial({
+//     color: 0xbcbcbc,
+//     roughness: 0.1,
+//     metalness: 0,
+// });
+// const mshStdFloor = new THREE.Mesh(geoFloor, matStdFloor);
+
+const floorMirror = new Reflector(
+    geoFloor,
+    {
+        clipBias: 0.001,
+        textureWidth: window.innerWidth * window.devicePixelRatio,
+        textureHeight: window.innerHeight * window.devicePixelRatio,
+        color: 0xffffff
+    }
+)
+// mshStdFloor.position.y = -1;
+// scene.add(mshStdFloor);
+
+floorMirror.position.y = -0.5;
+floorMirror.rotateX(-Math.PI / 2)
+scene.add(floorMirror);
 
 
 /**
