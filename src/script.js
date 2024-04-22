@@ -44,14 +44,14 @@ scene.add(gridHelper)
 const axisHeler = new THREE.AxesHelper(1)
 scene.add(axisHeler)
 
+// o: lights  
 // ambient light
-scene.add(new THREE.AmbientLight(0xffffff))
+// scene.add(new THREE.AmbientLight(0xffffff))
 
 // point light
 // const pointLight = new THREE.PointLight(0xffffff, 10, 0, 0);
 // pointLight.position.set(1, 2, -3)
 // scene.add(pointLight);
-
 
 // rect area light
 RectAreaLightUniformsLib.init()
@@ -75,10 +75,33 @@ scene.add(new RectAreaLightHelper(rectLight_1));
 scene.add(new RectAreaLightHelper(rectLight_2));
 scene.add(new RectAreaLightHelper(rectLight_3));
 
+// sunlight
+const sunLight = new THREE.DirectionalLight(0xFFE499, 5);
+sunLight.castShadow = true;
+sunLight.shadow.camera.near = .1;
+sunLight.shadow.camera.far = 5;
+sunLight.shadow.camera.right = 2;
+sunLight.shadow.camera.left = - 2;
+sunLight.shadow.camera.top = 2;
+sunLight.shadow.camera.bottom = - 2;
+sunLight.shadow.mapSize.width = 2048;
+sunLight.shadow.mapSize.height = 2048;
+sunLight.shadow.bias = - 0.001;
+sunLight.position.set(.5, 3, .5);
+scene.add(sunLight)
+const skyAmbientLight = new THREE.HemisphereLight(0x74ccf4, 0, 1);
+scene.add(skyAmbientLight)
+
 
 // floor
-// const geoFloor = new THREE.BoxGeometry(10, 1, 10);
-const geoFloor = new THREE.CircleGeometry(50, 50);
+const floorGeom = new THREE.BoxGeometry(10, 0.001, 10);
+const floorMat = new THREE.MeshStandardMaterial({ color: 0xffffff })
+const floorMesh = new THREE.Mesh(floorGeom, floorMat)
+floorMesh.position.set(0, -1, 0)
+scene.add(floorMesh)
+
+// const geoFloor = new THREE.CircleGeometry(50, 50);
+
 // const matStdFloor = new THREE.MeshStandardMaterial({
 //     color: 0xbcbcbc,
 //     roughness: 0.1,
@@ -86,21 +109,22 @@ const geoFloor = new THREE.CircleGeometry(50, 50);
 // });
 // const mshStdFloor = new THREE.Mesh(geoFloor, matStdFloor);
 
-const floorMirror = new Reflector(
-    geoFloor,
-    {
-        clipBias: 0.001,
-        textureWidth: window.innerWidth * window.devicePixelRatio,
-        textureHeight: window.innerHeight * window.devicePixelRatio,
-        color: 0xffffff
-    }
-)
+// const floorMirror = new Reflector(
+//     geoFloor,
+//     {
+//         clipBias: 0.001,
+//         textureWidth: window.innerWidth * window.devicePixelRatio,
+//         textureHeight: window.innerHeight * window.devicePixelRatio,
+//         color: 0xffffff
+//     }
+// )
+
 // mshStdFloor.position.y = -1;
 // scene.add(mshStdFloor);
 
-floorMirror.position.y = -0.5;
-floorMirror.rotateX(-Math.PI / 2)
-scene.add(floorMirror);
+// floorMirror.position.y = -0.5;
+// floorMirror.rotateX(-Math.PI / 2)
+// scene.add(floorMirror);
 
 
 /**
@@ -148,6 +172,7 @@ const renderer = new THREE.WebGLRenderer({
 })
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+renderer.shadowMap.enabled = true
 
 /**
  * Animate
