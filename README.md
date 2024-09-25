@@ -2,6 +2,8 @@
 
 A starter for `three.js` project initiated via `Vite`. 
 
+![2024-09-25 17 34 16](https://github.com/user-attachments/assets/d9bdc041-8453-4ee3-8e72-58acf282a62a)
+
 ## Setup
 
 Download [Node.js](https://nodejs.org/en/download/).
